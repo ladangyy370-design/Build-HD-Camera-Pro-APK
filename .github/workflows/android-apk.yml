@@ -25,15 +25,14 @@ jobs:
           gradle-version: "8.7"
 
       - name: Extract project ZIP
-        run: unzip -o HD_Camera_Pro_v0_5_High_Quality.zip
+        run: unzip -o HDCP_v051_Fix.zip
 
       - name: Build APK
         run: gradle --no-daemon -p HD_Camera_Pro_Cloud :app:assembleDebug
 
       - uses: actions/upload-artifact@v4
         with:
-          name: HD-Camera-Pro-v0.5-APK
+          name: HD-Camera-Pro-v0.5.1-APK
           path: HD_Camera_Pro_Cloud/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 14
-          
