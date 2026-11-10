@@ -24,8 +24,8 @@ jobs:
         with:
           gradle-version: "8.7"
 
-      - name: Extract project ZIP
-        run: unzip -o HDCP_v051_Fix.zip
+      - - name: Extract project ZIP
+          run: unzip -o HDCP_v052_LUT_Fix.zip
 
       - name: Build APK
         run: gradle --no-daemon -p HD_Camera_Pro_Cloud :app:assembleDebug
