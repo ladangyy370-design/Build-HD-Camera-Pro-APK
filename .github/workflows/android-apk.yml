@@ -24,7 +24,7 @@ jobs:
           java-version: "17"
 
       - name: Extract project ZIP
-        run: unzip -o HD_Camera_Pro_v0_2_GitHub_Cloud.zip
+        run: unzip -o HD_Camera_Pro_v0_4_3D_LUT.zip
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
