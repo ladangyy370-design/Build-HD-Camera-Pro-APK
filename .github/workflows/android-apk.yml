@@ -2,38 +2,49 @@
 name: Build HD Camera Pro APK
 
 on:
-  workflow_dispatch:
   push:
-    branches: ["main"]
+    branches:
+      - main
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
   build:
+    name: Build APK
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - uses: actions/setup-java@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
 
-      - uses: gradle/actions/setup-gradle@v4
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.7"
 
-      - - name: Extract project ZIP
-          run: unzip -o HDCP_v052_LUT_Fix.zip
+      - name: Extract v0.5.2 source
+        run: |
+          test -f HDCP_v052_LUT_Fix.zip
+          unzip -o HDCP_v052_LUT_Fix.zip
 
       - name: Build APK
-        run: gradle --no-daemon -p HD_Camera_Pro_Cloud :app:assembleDebug
+        run: |
+          gradle --no-daemon \
+            -p HD_Camera_Pro_Cloud \
+            :app:assembleDebug
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
         with:
-          name: HD-Camera-Pro-v0.5.1-APK
+          name: HD-Camera-Pro-v0.5.2-APK
           path: HD_Camera_Pro_Cloud/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 14
-          
